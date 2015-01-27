@@ -1,0 +1,4 @@
+module CFMap
+plugin declarative_cfmap
+typeinfo plugins.qmltypes
+classname CFMapModule
