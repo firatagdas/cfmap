@@ -16,6 +16,9 @@ public:
     void setCoordinate(CFMapCoordinate *coordinate);
     CFMapCoordinate *coordinate() const;
 
+    void setText(const QString &text);
+    QString text() const;
+
     void setTitle(const QString &title);
     QString title() const;
 

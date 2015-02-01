@@ -15,6 +15,7 @@ class Q_CFMAP_EXPORT CFMapMarker : public QObject
     Q_OBJECT
     Q_ENUMS(AppearAnimationType)
     Q_PROPERTY(CFMapCoordinate * coordinate READ coordinate WRITE setCoordinate NOTIFY coordinateChanged)
+    Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
     Q_PROPERTY(QString icon READ icon WRITE setIcon NOTIFY iconChanged)
     Q_PROPERTY(QString snippet READ snippet WRITE setSnippet NOTIFY snippetChanged)
@@ -42,6 +43,9 @@ public:
 
     void setCoordinate(CFMapCoordinate *coordinate);
     CFMapCoordinate *coordinate() const;
+
+    void setText(const QString &text);
+    QString text() const;
 
     void setTitle(const QString &title);
     QString title() const;
@@ -92,6 +96,7 @@ public:
 
 Q_SIGNALS:
     void coordinateChanged();
+    void textChanged();
     void titleChanged();
     void iconChanged();
     void snippetChanged();
@@ -113,5 +118,6 @@ private:
     CFMapMarkerPrivate *d_ptr;
 };
 
+QML_DECLARE_TYPE(CFMapMarker)
 
 #endif

@@ -45,5 +45,6 @@ private:
     CFMapCameraPositionPrivate *d_ptr;
 };
 
+QML_DECLARE_TYPE(CFMapCameraPosition)
 
 #endif

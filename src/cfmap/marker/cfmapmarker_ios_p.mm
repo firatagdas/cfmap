@@ -30,8 +30,10 @@ CFMapMarkerIosPrivate::~CFMapMarkerIosPrivate()
 void CFMapMarkerIosPrivate::setCoordinate(CFMapCoordinate *coordinate)
 {
     if (m_coordinate != coordinate) {
-        m_coordinate->deleteLater();
-        m_coordinate = 0;
+        if (m_coordinate) {
+            m_coordinate->deleteLater();
+            m_coordinate = 0;
+        }
 
         m_coordinate = coordinate;
         m_marker.position = CLLocationCoordinate2DMake(m_coordinate->latitude(), m_coordinate->longitude());
@@ -43,6 +45,20 @@ void CFMapMarkerIosPrivate::setCoordinate(CFMapCoordinate *coordinate)
 CFMapCoordinate *CFMapMarkerIosPrivate::coordinate() const
 {
     return m_coordinate;
+}
+
+void CFMapMarkerIosPrivate::setText(const QString &text)
+{
+    if (m_text != text) {
+        m_text = text;
+        restoreMarker();
+        q()->textChanged();
+    }
+}
+
+QString CFMapMarkerIosPrivate::text() const
+{
+    return m_text;
 }
 
 void CFMapMarkerIosPrivate::setTitle(const QString &title)
@@ -62,10 +78,7 @@ void CFMapMarkerIosPrivate::setIcon(const QString &icon)
 {
     if (m_icon != icon) {
         m_icon = icon;
-        if (m_marker.icon != nil)
-            [m_marker.icon release];
-
-        m_marker.icon = [UIImage imageNamed:[[NSString alloc] initWithFormat:@"%s", icon.toUtf8().data()]];
+        restoreMarker();
         Q_EMIT q()->iconChanged();
     }
 }
@@ -281,3 +294,48 @@ void *CFMapMarkerIosPrivate::nativeObject() const
     return m_marker;
 }
 
+void CFMapMarkerIosPrivate::restoreMarker()
+{
+    if (m_icon.isEmpty())
+        return;
+
+    if (m_marker.icon != nil)
+        [m_marker.icon release];
+
+    NSString *iconName = [[NSString alloc] initWithFormat:@"%s", m_icon.toUtf8().data()];
+    UIImage *icon = [UIImage imageNamed:iconName];
+
+    if (!m_text.isEmpty()) {
+
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, icon.size.width, icon.size.height)];
+        UIImageView *markerView = [[UIImageView alloc] initWithImage:icon];
+        NSString *markerText = [[NSString alloc] initWithFormat:@"%s", m_text.toUtf8().data()];
+
+        UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:14];
+        CGSize labelSize = [markerText sizeWithFont:font constrainedToSize:CGSizeMake(icon.size.width, 13.f) lineBreakMode:NSLineBreakByWordWrapping];
+
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake((icon.size.width - labelSize.width) / 2, 7.f, labelSize.width, labelSize.height)];
+        label.text = markerText;
+        label.font = font;
+        label.clipsToBounds = YES;
+        label.backgroundColor = [UIColor clearColor];
+        label.textColor = [UIColor whiteColor];
+        label.textAlignment = NSTextAlignmentLeft;
+        label.lineBreakMode = NSLineBreakByWordWrapping;
+        label.numberOfLines = 0;
+
+        [view addSubview:markerView];
+        [view addSubview:label];
+
+        if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)])
+            UIGraphicsBeginImageContextWithOptions(view.frame.size, NO, [[UIScreen mainScreen] scale]);
+        else
+            UIGraphicsBeginImageContext(view.frame.size);
+
+        [view.layer renderInContext: UIGraphicsGetCurrentContext()];
+        icon = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+    }
+
+    m_marker.icon = icon;
+}

@@ -18,6 +18,9 @@ public:
     void setCoordinate(CFMapCoordinate *coordinate);
     CFMapCoordinate *coordinate() const;
 
+    void setText(const QString &text);
+    QString text() const;
+
     void setTitle(const QString &title);
     QString title() const;
 
@@ -65,8 +68,11 @@ public:
 
     void *nativeObject() const;
 
+    void restoreMarker();
+
 private:
     GMSMarker *m_marker;
+    QString m_text;
     CFMapCoordinate *m_coordinate;
     CFMapMarkerLayer *m_markerLayer;
     QVariant m_userData;

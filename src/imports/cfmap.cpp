@@ -3,6 +3,10 @@
 #include <CFMvc/cfmodel.h>
 #include <CFMap/cfmapmodel.h>
 #include <CFMap/cfmapview.h>
+#include <CFMap/cfmapcameraposition.h>
+#include <CFMap/cfmapcoordinate.h>
+#include <CFMap/cfmapmarker.h>
+#include <CFMap/cfmapmarkerlayer.h>
 
 CFMVC_DEFINE_MODEL(CFMapModel)
 
@@ -20,6 +24,10 @@ public:
         // @uri CFMap
         qmlRegisterSingletonType<CFMapModel>(uri, 1, 0, "CFMapModel", CFMVC_MODEL(CFMapModel));
         qmlRegisterType<CFMapView>(uri, 1, 0, "CFMapView");
+        qmlRegisterType<CFMapCameraPosition>(uri, 1, 0, "CFMapCameraPosition");
+        qmlRegisterType<CFMapCoordinate>(uri, 1, 0, "CFMapCoordinate");
+        qmlRegisterType<CFMapMarker>(uri, 1, 0, "CFMapMarker");
+        qmlRegisterType<CFMapMarkerLayer>(uri, 1, 0, "CFMapMarkerLayer");
     }
 
     void initializeEngine(QQmlEngine *engine, const char *uri)

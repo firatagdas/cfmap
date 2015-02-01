@@ -22,6 +22,9 @@ public:
     virtual void setCoordinate(CFMapCoordinate *coordinate) = 0;
     virtual CFMapCoordinate *coordinate() const = 0;
 
+    virtual void setText(const QString &text) = 0;
+    virtual QString text() const = 0;
+
     virtual void setTitle(const QString &title) = 0;
     virtual QString title() const = 0;
 

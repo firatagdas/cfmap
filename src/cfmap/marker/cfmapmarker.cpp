@@ -13,6 +13,18 @@ CFMapMarker::~CFMapMarker()
     delete d_ptr;
 }
 
+void CFMapMarker::setText(const QString &text)
+{
+    Q_D(CFMapMarker);
+    d->setText(text);
+}
+
+QString CFMapMarker::text() const
+{
+    Q_D(const CFMapMarker);
+    return d->text();
+}
+
 void CFMapMarker::setCoordinate(CFMapCoordinate *coordinate)
 {
     Q_D(CFMapMarker);

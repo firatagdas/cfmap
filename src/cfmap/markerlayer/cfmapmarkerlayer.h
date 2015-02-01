@@ -40,5 +40,6 @@ private:
     CFMapMarkerLayerPrivate *d_ptr;
 };
 
+QML_DECLARE_TYPE(CFMapMarkerLayer)
 
 #endif

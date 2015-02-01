@@ -34,4 +34,6 @@ private:
     CFMapCoordinatePrivate *d_ptr;
 };
 
+QML_DECLARE_TYPE(CFMapCoordinate)
+
 #endif
