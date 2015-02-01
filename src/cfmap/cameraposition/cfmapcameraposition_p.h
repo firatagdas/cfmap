@@ -15,7 +15,7 @@ public:
         , q_ptr(q)
     {}
 
-    virtual ~CFMapCameraPositionPrivate();
+    virtual ~CFMapCameraPositionPrivate() {}
 
     static CFMapCameraPositionPrivate *create(CFMapCameraPosition *q);
 

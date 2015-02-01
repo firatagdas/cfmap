@@ -15,7 +15,7 @@ public:
         , q_ptr(q)
     {}
 
-    virtual ~CFMapCoordinatePrivate();
+    virtual ~CFMapCoordinatePrivate() {}
 
     static CFMapCoordinatePrivate *create(CFMapCoordinate *q);
 

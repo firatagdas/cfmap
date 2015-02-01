@@ -15,7 +15,7 @@ public:
         , q_ptr(q)
     {}
 
-    virtual ~CFMapMarkerPrivate();
+    virtual ~CFMapMarkerPrivate() {}
 
     static CFMapMarkerPrivate *create(CFMapMarker *q);
 
@@ -23,7 +23,7 @@ public:
     virtual CFMapCoordinate *coordinate() const = 0;
 
     virtual void setTitle(const QString &title) = 0;
-    virtual QString title() const;
+    virtual QString title() const = 0;
 
     virtual void setIcon(const QString &icon) = 0;
     virtual QString icon() const = 0;
@@ -41,7 +41,7 @@ public:
     virtual CFMapMarker::AppearAnimationType animationType() const = 0;
 
     virtual void setDraggable(bool value) = 0;
-    virtual bool draggable() const;
+    virtual bool draggable() const = 0;
 
     virtual void setFlat(bool value) = 0;
     virtual bool flat() const = 0;

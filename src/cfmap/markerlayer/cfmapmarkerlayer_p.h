@@ -15,7 +15,7 @@ public:
         , q_ptr(q)
     {}
 
-    virtual ~CFMapMarkerLayerPrivate();
+    virtual ~CFMapMarkerLayerPrivate() {}
 
     static CFMapMarkerLayerPrivate *create(CFMapMarkerLayer *q);
 

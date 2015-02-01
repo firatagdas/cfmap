@@ -14,6 +14,7 @@ public:
     {}
     virtual ~CFMapViewPrivate() {}
     static CFMapViewPrivate *create(CFMapView *q);
+
     CFMapView *q() { return q_ptr; }
 
     virtual void *nativeView() = 0;
