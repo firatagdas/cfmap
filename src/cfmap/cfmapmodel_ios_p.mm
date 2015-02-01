@@ -29,3 +29,4 @@ void CFMapModelIosPrivate::init(const QString &apiKey)
 {
     [GMSServices provideAPIKey:[[NSString alloc] initWithFormat:@"%s", apiKey.toUtf8().data()]];
 }
+

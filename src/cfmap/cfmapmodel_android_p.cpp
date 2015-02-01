@@ -27,4 +27,3 @@ void CFMapModelAndroidPrivate::init(const QString &apiKey)
 {
     Q_UNUSED(apiKey)
 }
-

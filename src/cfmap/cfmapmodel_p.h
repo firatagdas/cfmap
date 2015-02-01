@@ -22,7 +22,6 @@ public:
 
     virtual void init() = 0;
     virtual void init(const QString &apiKey) = 0;
-
 private:
     Q_DECLARE_PUBLIC(CFMapModel)
     CFMapModel *q_ptr;
